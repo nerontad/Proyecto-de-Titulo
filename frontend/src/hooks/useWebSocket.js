@@ -9,7 +9,8 @@ export function useWebSocket(endpoint) {
     const token = localStorage.getItem('token')
     if (!token) return
 
-    const ws = new WebSocket(`ws://127.0.0.1:8000${endpoint}`)
+    const wsUrl = 'wss://detector-incendios-production.up.railway.app'
+    const ws = new WebSocket(`${wsUrl}${endpoint}`)
     wsRef.current = ws
 
     ws.onopen = () => {
@@ -27,7 +28,6 @@ export function useWebSocket(endpoint) {
 
     ws.onclose = () => {
       setConectado(false)
-      console.log(`WebSocket desconectado: ${endpoint}`)
     }
 
     ws.onerror = (e) => {
